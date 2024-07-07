@@ -1,0 +1,20 @@
+# Graph objects Tree map representation of exports in 2018
+import pandas as pd
+import plotly.graph_objs as go
+import plotly.io as pio
+
+# Load import and export data
+imp_df = pd.read_csv("Stripped imports.csv")
+exp_df = pd.read_csv("Stripped exports.csv")
+
+
+dat2 = exp_df.loc[exp_df['Year'] == 2018]
+data = dat2.groupby('Country')['Value'].sum().reset_index()
+data['Parents'] = ''
+fig = go.Figure(go.Treemap(
+    labels = data['Country'],
+    parents = data['Parents'],
+    values = data['Value'],
+    marker_colorscale = 'Rainbow'  #[[0,'rgb(255, 255, 255)'],[1,'rgb(200, 0, 2)']]
+))
+fig.show()
