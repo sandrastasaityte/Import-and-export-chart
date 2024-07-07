@@ -1,0 +1,30 @@
+import pandas as pd
+import plotly.graph_objs as go
+import plotly.io as pio
+
+# Load import and export data
+imp_df = pd.read_csv("Stripped imports.csv")
+exp_df = pd.read_csv("Stripped exports.csv")
+
+# Filter import data for the year 2018
+imp_2018 = imp_df[imp_df['Year'] == 2018]
+
+# Sort by Value and select top commodities
+top_commodities = imp_2018.sort_values(by='Value', ascending=False).head(15)
+
+# Create Pie Chart
+fig = go.Figure(data=[go.Pie(labels=top_commodities['Commodity'],
+                             values=top_commodities['Value'],
+                             textinfo='label+percent',
+                             hole=0.3)])
+fig.update_layout(title='Major Imports of Pakistan in 2018')
+pio.show(fig)
+
+df1 = df.iloc [ :30 , : ]
+df1
+
+labels = df1['color']
+values =df1['revenue']
+fig = go.Figure(data = [go.Pie(labels = labels , values = values ,
+         textinfo = 'label+percent' , hole =0.3, pull = [.1, 0, 0, 0])])
+fig.show()
